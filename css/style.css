@@ -43,10 +43,11 @@ table {
 
 th,
 td {
-    border: none;
     text-align: center;
-    padding: 20px;
-    height: 70px;
+    padding: 0px;
+    /* Reduce the cell padding for smaller screens */
+    height: 50px;
+    /* Reduce the cell height for smaller screens */
 }
 
 td:hover {
@@ -57,6 +58,7 @@ td:hover {
 th {
     background-color: #F25E3D;
     color: #fff;
+    padding-left: 6%;
 }
 
 td {
