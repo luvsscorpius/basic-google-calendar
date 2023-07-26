@@ -1,3 +1,11 @@
+# [1.1.0](https://github.com/luvsscorpius/basic-google-calendar/compare/v1.0.0...v1.1.0) (2023-07-26)
+
+
+### Features
+
+* **delete function added:** now you can delete your events ([e3b1e7b](https://github.com/luvsscorpius/basic-google-calendar/commit/e3b1e7b73ab00dba5c59b03dc4c1a403a7b2d529))
+* **updating function added:** now you can update an event ([f6c3659](https://github.com/luvsscorpius/basic-google-calendar/commit/f6c36596c2a68eef0b1cd1f5fb4953fc58b412d2))
+
 # 1.0.0 (2023-07-26)
 
 
