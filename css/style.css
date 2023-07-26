@@ -1,0 +1,168 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+.calendar {
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    height: 100%;
+    border: 1px solid #ccc;
+}
+
+.divMonthYear {
+    background-color: #1B3940;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #fff;
+    border-radius: 5px;
+}
+
+.divMonthYear span {
+    margin: 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.month-year {
+    text-align: center;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    border: none;
+    text-align: center;
+    padding: 20px;
+    height: 70px;
+}
+
+td:hover {
+    background-color: #ccc;
+    cursor: pointer;
+}
+
+th {
+    background-color: #F25E3D;
+    color: #fff;
+}
+
+td {
+    padding-top: 50px;
+}
+
+.add-event-icon {
+    font-size: 20px;
+    cursor: pointer;
+    color: #007bff;
+}
+
+.add-event-icon:hover {
+    color: #0056b3;
+}
+
+.celulas {
+    max-height: 50px;
+}
+
+.day-cell {
+    width: 100px;
+    height: 100px;
+    /* Defina a altura desejada da célula */
+    text-align: center;
+    /* Centralize o conteúdo na célula */
+    vertical-align: top;
+    /* Alinhe o conteúdo no topo da célula */
+    padding-top: 5px;
+    overflow: hidden;
+}
+
+#eventoForm {
+    display: flex;
+    flex-direction: column;
+}
+
+.formControl {
+    margin: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.formControl input {
+    border: none;
+    border-bottom: 1px solid #ccc;
+    outline: none;
+    font-size: 20px;
+}
+
+.formControl input:focus {
+    border-bottom: 2px solid #0056b3;
+}
+
+.formControl input::placeholder {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.formControl input,
+select {
+    width: 100%;
+}
+
+.formControl i {
+    margin: 5px;
+    font-size: 1.5rem;
+}
+
+.selected-option {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    vertical-align: middle;
+    margin: 5px;
+}
+
+.options-list {
+    display: none;
+    position: absolute;
+    z-index: 1;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.options-list li {
+    padding: 5px;
+}
+
+.options-list li:hover {
+    background-color: #f1f1f1;
+}
+
+.color-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 5px;
+    vertical-align: middle;
+}
