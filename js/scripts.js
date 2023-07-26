@@ -18,7 +18,7 @@ class Evento {
 
     //Método para atualizar o evento 
     updateEvent(oldDate, oldTitle, oldColor, newDate, newTitle, newColor) {
-        // precisamos verificar se o método existe na lista
+        // precisamos verificar se o evento existe na lista
         // Transformando a data em string
         const oldDateString = oldDate.toDateString()
         if (this.eventsByDate[oldDateString]) {
@@ -37,6 +37,26 @@ class Evento {
                 this.eventsByDate[oldDateString][oldEventIndex].date = newDate;
             } else {
                 console.log("Evento não encontrado na lista.");
+            }
+        }
+    }
+
+    deleteEvent(date, title, color) {
+        // transformando a data em string
+        const dateString = date.toDateString()
+
+        // Verificar se o evento existe
+        if (this.eventsByDate[dateString]) {
+            // Depois de verificar se existe, precisamos achar o evento especifico
+            const eventIndex = this.eventsByDate[dateString].findIndex(event => {
+                return event.title === title && event.color === color
+            })
+            // se o eventIndex for diferente de -1 faça
+            if (eventIndex !== -1) {
+                // o método splice remove o evento do array
+                this.eventsByDate[dateString].splice(eventIndex, 1)
+            } else {
+                console.log('Evento não encontrado na lista.')
             }
         }
     }
@@ -141,9 +161,6 @@ const generateCalendar = (month, year, eventManager) => {
                         const newColor = colorInput.value
                         const newDate = new Date(dateInput.value)
 
-                        // Precisamos obter a data antiga do evento clicado
-                        const oldDateString = clickedDate.toDateString()
-
                         // Precisamos obter o título e a cor do evento clicado que estao armazenados no dataset
                         const oldTitle = clickedEventItem.dataset.eventTitle
                         const oldColor = clickedEventItem.dataset.eventColor
@@ -154,6 +171,22 @@ const generateCalendar = (month, year, eventManager) => {
                         // E por fim precisamos atualizar o calendário
                         generateCalendar(currentMonth, currentYear, eventManager)
                     })
+
+                    const btnDelete = document.querySelector('#btnDelete')
+
+                    btnDelete.addEventListener('click', () => {
+                        console.log('Apaguei')
+
+                        const dateToDelete = new Date(clickedEventItem.dataset.eventDate); // Converter a data de volta para objeto Date
+                        const titleToDelete = clickedEventItem.dataset.eventTitle
+                        const colorToDelete = clickedEventItem.dataset.eventColor
+
+                        eventManager.deleteEvent(dateToDelete, titleToDelete, colorToDelete)
+
+                        generateCalendar(currentMonth, currentYear, eventManager)
+                    })
+
+
                 } else {
                     // Ajuste o mês adicionando +1, pois em JavaScript, os meses são indexados de 0 a 11
                     const adjustedDate = new Date(clickedDate.getFullYear(), clickedDate.getMonth(), clickedDate.getDate());
@@ -195,6 +228,7 @@ const generateCalendar = (month, year, eventManager) => {
                     // Armazenar as informações do evento como atributos de dados
                     eventItem.dataset.eventTitle = event.title
                     eventItem.dataset.eventColor = event.color
+                    eventItem.dataset.eventDate = event.date.toISOString(); // Adiciona o atributo eventDate
 
                     eventElement.appendChild(eventItem);
                 });
