@@ -8,12 +8,57 @@ class Evento {
         if (!this.eventsByDate[dateString]) {
             this.eventsByDate[dateString] = [];
         }
-        this.eventsByDate[dateString].push({ title, color });
+        this.eventsByDate[dateString].push({ title, color, date });
     }
 
     getEventsByDate(date) {
         const dateString = date.toDateString();
         return this.eventsByDate[dateString] || [];
+    }
+
+    //Método para atualizar o evento 
+    updateEvent(oldDate, oldTitle, oldColor, newDate, newTitle, newColor) {
+        // precisamos verificar se o evento existe na lista
+        // Transformando a data em string
+        const oldDateString = oldDate.toDateString()
+        if (this.eventsByDate[oldDateString]) {
+            // Agora se o método existir precisamos encontrar o index do método
+            const oldEventIndex = this.eventsByDate[oldDateString].findIndex(event => {
+                return event.title === oldTitle && event.color === oldColor
+            })
+
+            console.log(oldEventIndex)
+
+            // se o evento foi encontrado, atualize com as novas informações
+            // se for -1 um isso significa que o evento antigo não foi encontrado na lista
+            if (oldEventIndex !== -1) {
+                this.eventsByDate[oldDateString][oldEventIndex].title = newTitle;
+                this.eventsByDate[oldDateString][oldEventIndex].color = newColor;
+                this.eventsByDate[oldDateString][oldEventIndex].date = newDate;
+            } else {
+                console.log("Evento não encontrado na lista.");
+            }
+        }
+    }
+
+    deleteEvent(date, title, color) {
+        // transformando a data em string
+        const dateString = date.toDateString()
+
+        // Verificar se o evento existe
+        if (this.eventsByDate[dateString]) {
+            // Depois de verificar se existe, precisamos achar o evento especifico
+            const eventIndex = this.eventsByDate[dateString].findIndex(event => {
+                return event.title === title && event.color === color
+            })
+            // se o eventIndex for diferente de -1 faça
+            if (eventIndex !== -1) {
+                // o método splice remove o evento do array
+                this.eventsByDate[dateString].splice(eventIndex, 1)
+            } else {
+                console.log('Evento não encontrado na lista.')
+            }
+        }
     }
 }
 
@@ -37,7 +82,7 @@ btnSalvar.addEventListener('click', () => {
     console.log('teste')
     const title = document.querySelector('#eventTitle').value
     const color = document.querySelector('#eventColor').value
-    const date = new Date(document.getElementById('eventTime').value);
+    const date = new Date(document.querySelector('#eventTime').value);
     // Adiciona o novo evento à lista de eventos para a data selecionada
     eventManager.addEvent(date, title, color);
 
@@ -55,6 +100,7 @@ const monthYearText = document.querySelector('#month-year')
 const previousMonth = document.querySelector('#previousMonth')
 const nextMonth = document.querySelector('#nextMonth')
 
+
 const generateCalendar = (month, year, eventManager) => {
     // Pega o primeiro dia do mês
     const firstDay = new Date(year, month, 1).getDay()
@@ -63,8 +109,8 @@ const generateCalendar = (month, year, eventManager) => {
     const lastDay = new Date(year, month + 1, 0).getDate()
 
     // Transforma a data em string
-    const today = new Date().toDateString()
-
+    const today = new Date().getDate()
+    console.log(today)
     // Limpa o corpo da tabela
     calendarBody.innerHTML = ''
 
@@ -80,25 +126,87 @@ const generateCalendar = (month, year, eventManager) => {
 
         for (let day = 0; day < 7; day++) {
             const cell = document.createElement('td') // criando celula
+            const cellDay = document.createElement('p')
             cell.setAttribute('data-target', '#ExemploModalCentralizado')
             cell.setAttribute('data-toggle', 'modal')
-            cell.classList.add('day-cell')
+            cell.classList.add('cellCalendar')
+            cell.appendChild(cellDay)
             cell.addEventListener('click', () => {
                 const clickedDate = new Date(year, month, parseInt(cell.textContent));
-                // Ajuste o mês adicionando +1, pois em JavaScript, os meses são indexados de 0 a 11
-                const adjustedDate = new Date(clickedDate.getFullYear(), clickedDate.getMonth(), clickedDate.getDate());
-                const dateString = adjustedDate.toISOString().slice(0, 16); // Formate a data para 'YYYY-MM-DDTHH:mm'
-                document.getElementById('eventTime').value = dateString;
 
-                const title = document.querySelector('#eventTitle')
-                title.value = ""
+                const clickedEventItem = event.target.closest('.event-item')
+                if (clickedEventItem) {
+
+                    console.log('ha eventos')
+                    cell.setAttribute('data-target', '#modalEdicao')
+                    cell.setAttribute('data-toggle', 'modal')
+                    const title = clickedEventItem.dataset.eventTitle
+                    const color = clickedEventItem.dataset.eventColor
+                    const adjustedDate = new Date(clickedDate.getFullYear(), clickedDate.getMonth(), clickedDate.getDate());
+                    const dateString = adjustedDate.toISOString().slice(0, 16); // Formate a data para 'YYYY-MM-DDTHH:mm'
+
+                    const titleInput = document.querySelector('#eventTitleEdicao')
+                    const colorInput = document.querySelector('#eventColorEdicao')
+                    const dateInput = document.querySelector('#eventTimeEdicao')
+
+                    titleInput.value = title
+                    colorInput.value = color
+                    dateInput.value = dateString;
+
+                    const btnSalvarEdicao = document.querySelector('#btnSalvarEdicao')
+
+                    btnSalvarEdicao.addEventListener('click', () => {
+
+                        const newTitle = titleInput.value
+                        const newColor = colorInput.value
+                        const newDate = new Date(dateInput.value)
+
+                        // Precisamos obter o título e a cor do evento clicado que estao armazenados no dataset
+                        const oldTitle = clickedEventItem.dataset.eventTitle
+                        const oldColor = clickedEventItem.dataset.eventColor
+
+                        // Precisamos mandar atualizar agora
+                        eventManager.updateEvent(clickedDate, oldTitle, oldColor, newDate, newTitle, newColor);
+
+                        // E por fim precisamos atualizar o calendário
+                        generateCalendar(currentMonth, currentYear, eventManager)
+                    })
+
+                    const btnDelete = document.querySelector('#btnDelete')
+
+                    btnDelete.addEventListener('click', () => {
+                        console.log('Apaguei')
+
+                        const dateToDelete = new Date(clickedEventItem.dataset.eventDate); // Converter a data de volta para objeto Date
+                        const titleToDelete = clickedEventItem.dataset.eventTitle
+                        const colorToDelete = clickedEventItem.dataset.eventColor
+
+                        eventManager.deleteEvent(dateToDelete, titleToDelete, colorToDelete)
+
+                        generateCalendar(currentMonth, currentYear, eventManager)
+                    })
+
+
+                } else {
+                    // Ajuste o mês adicionando +1, pois em JavaScript, os meses são indexados de 0 a 11
+                    const adjustedDate = new Date(clickedDate.getFullYear(), clickedDate.getMonth(), clickedDate.getDate());
+                    const dateString = adjustedDate.toISOString().slice(0, 16); // Formate a data para 'YYYY-MM-DDTHH:mm'
+                    document.getElementById('eventTime').value = dateString;
+
+                    const title = document.querySelector('#eventTitle')
+                    title.value = ""
+                }
             })
 
             // se ainda nao chegou no primeiro dia do mes ou ja passou do ultimo dia a celular fica vazia
             if ((week === 0 && day < firstDay) || (date > lastDay)) {
                 cell.textContent = '' // Limpando a celula
             } else {
-                cell.textContent = date
+                cellDay.textContent = date
+
+                if (date === today) {
+                    cellDay.classList.add('cellDay')
+                }
 
                 // Cria o elemento para mostrar os eventManager
                 const eventElement = document.createElement('div');
@@ -113,8 +221,15 @@ const generateCalendar = (month, year, eventManager) => {
                 eventsForDate.forEach(event => {
                     const eventItem = document.createElement('div');
                     eventItem.classList.add('event-item');
+
                     eventItem.style.backgroundColor = event.color
                     eventItem.innerHTML = `<strong>${event.title}</strong>`;
+
+                    // Armazenar as informações do evento como atributos de dados
+                    eventItem.dataset.eventTitle = event.title
+                    eventItem.dataset.eventColor = event.color
+                    eventItem.dataset.eventDate = event.date.toISOString(); // Adiciona o atributo eventDate
+
                     eventElement.appendChild(eventItem);
                 });
 

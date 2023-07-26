@@ -77,7 +77,7 @@ td {
     max-height: 50px;
 }
 
-.day-cell {
+.cellCalendar {
     width: 100px;
     height: 100px;
     /* Defina a altura desejada da célula */
@@ -165,4 +165,42 @@ select {
     border-radius: 50%;
     margin-right: 5px;
     vertical-align: middle;
+}
+
+.cellDay {
+    color: #eee;
+    font-weight: 700;
+    background-color: #0056b3;
+    border-radius: 50%;
+    width: 25px;
+    margin: 0 auto;
+}
+
+.event-item:hover {
+    color: #eee;
+    cursor: pointer;
+}
+
+.icones {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icones button {
+    opacity: 0.85;
+    cursor: pointer;
+    outline: none;
+    border: 0;
+    background-color: #fff;
+    font-size: 20px;
+}
+
+.icones button:hover {
+    opacity: 1;
+}
+
+.icones button i {
+    border: 0;
+    outline: none;
 }
