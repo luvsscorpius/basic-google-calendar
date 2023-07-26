@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/luvsscorpius/basic-google-calendar/compare/v1.1.0...v1.2.0) (2023-07-26)
+
+
+### Features
+
+* **becoming responsive:** now you can use this calendar anywhere ([9a21ad8](https://github.com/luvsscorpius/basic-google-calendar/commit/9a21ad8b96493feca508dc68c2c7cda6b8144d2a))
+
 # [1.1.0](https://github.com/luvsscorpius/basic-google-calendar/compare/v1.0.0...v1.1.0) (2023-07-26)
 
 
