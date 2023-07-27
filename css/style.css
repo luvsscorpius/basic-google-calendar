@@ -29,6 +29,7 @@ body {
 .divMonthYear span {
     margin: 10px;
     cursor: pointer;
+    font-size: 25px;
     font-weight: bold;
 }
 
@@ -91,7 +92,7 @@ td {
     overflow: hidden;
 }
 
-#eventoForm {
+.eventoForm {
     display: flex;
     flex-direction: column;
 }

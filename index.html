@@ -53,7 +53,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="eventoForm">
+                    <form id="eventoForm" class="eventoForm">
                         <div class="formControl">
                             <i class="fa-solid fa-user-pen"></i>
                             <input type="text" id="eventTitle" required placeholder="Adicionar título">
@@ -84,13 +84,13 @@
         </div>
     </div>
 
-    <!-- Modal -->
+    <!-- Modal Edição-->
     <div class="modal fade" id="modalEdicao" tabindex="-1" role="dialog" aria-labelledby="TituloModalCentralizado"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="TituloModalCentralizado">Editar evento</h5>
+                    <h5 class="modal-title" id="TituloModalCentralizadoEdicao">Editar evento</h5>
                     <div class="icones">
                         <button type="button" id="btnDelete" data-dismiss="modal">
                             <i class="fa-solid fa-trash-can" aria-hidden="true"></i>
@@ -101,7 +101,7 @@
                     </div>
                 </div>
                 <div class="modal-body">
-                    <form id="eventoForm">
+                    <form id="eventoFormEdicao" class="eventoForm">
                         <div class="formControl">
                             <i class="fa-solid fa-user-pen"></i>
                             <input type="text" id="eventTitleEdicao" required placeholder="Adicionar título">
@@ -115,7 +115,7 @@
                                 <option value="#43a047" data-color="green">Verde</option>
                                 <option value="#1976d2" data-color="blue">Azul</option>
                             </select>
-                            <div class="selected-option" id="selectedOption"></div>
+                            <div class="selected-option" id="selectedOptionEdicao"></div>
                         </div>
                         <div class="formControl">
                             <i class="fa-regular fa-clock"></i>
