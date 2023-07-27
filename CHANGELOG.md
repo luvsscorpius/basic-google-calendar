@@ -1,3 +1,11 @@
+# [1.3.0](https://github.com/luvsscorpius/basic-google-calendar/compare/v1.2.1...v1.3.0) (2023-07-27)
+
+
+### Features
+
+* **readme added:** rEADME added ([f989cd5](https://github.com/luvsscorpius/basic-google-calendar/commit/f989cd5967c7ac8dc0ef30182c9f81e4f293a1f9))
+* **readme updated:** rEADME updated ([0742c66](https://github.com/luvsscorpius/basic-google-calendar/commit/0742c66166f0ef7c5e0964557a57029b83c167c9))
+
 ## [1.2.1](https://github.com/luvsscorpius/basic-google-calendar/compare/v1.2.0...v1.2.1) (2023-07-27)
 
 
