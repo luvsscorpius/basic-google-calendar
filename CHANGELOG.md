@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/luvsscorpius/basic-google-calendar/compare/v1.2.0...v1.2.1) (2023-07-27)
+
+
+### Bug Fixes
+
+* **present day hightlight fixed:** present day highlight fixed, now you only have one present day ([8f40191](https://github.com/luvsscorpius/basic-google-calendar/commit/8f401910dfbcc5a7ce109356bd668af747d97be7))
+
 # [1.2.0](https://github.com/luvsscorpius/basic-google-calendar/compare/v1.1.0...v1.2.0) (2023-07-26)
 
 
