@@ -8,8 +8,10 @@ O Basic Google Calendar é um software que permite aos usuários gerenciar event
 
 Aqui estão algumas capturas de tela do software em funcionamento.
 
-![Desktop/Laptops](Screenshot 2023-07-27 181712.png)
+Desktop/Laptops
+![Desktop/Laptops](Screenshot2023-07-27181712.png)
 
+Mobile/Responsive
 ![Mobile/Responsive](IMG_8124.PNG)
 
 ## Funcionalidades
