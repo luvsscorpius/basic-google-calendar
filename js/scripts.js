@@ -100,7 +100,6 @@ const monthYearText = document.querySelector('#month-year')
 const previousMonth = document.querySelector('#previousMonth')
 const nextMonth = document.querySelector('#nextMonth')
 
-
 const generateCalendar = (month, year, eventManager) => {
     // Pega o primeiro dia do mês
     const firstDay = new Date(year, month, 1).getDay()
@@ -108,9 +107,9 @@ const generateCalendar = (month, year, eventManager) => {
     // Pega o ultimo dia do mês
     const lastDay = new Date(year, month + 1, 0).getDate()
 
-    // Transforma a data em string
     const today = new Date().getDate()
     console.log(today)
+
     // Limpa o corpo da tabela
     calendarBody.innerHTML = ''
 
@@ -119,7 +118,6 @@ const generateCalendar = (month, year, eventManager) => {
 
     // iniciando uma variavel com 1
     let date = 1
-    dayOfTheWeek = firstDay
 
     for (let week = 0; week < 6; week++) {
         const row = document.createElement('tr') // Criando uma linha
@@ -204,10 +202,6 @@ const generateCalendar = (month, year, eventManager) => {
             } else {
                 cellDay.textContent = date
 
-                if (date === today) {
-                    cellDay.classList.add('cellDay')
-                }
-
                 // Cria o elemento para mostrar os eventManager
                 const eventElement = document.createElement('div');
                 eventElement.classList.add('event-container');
@@ -216,6 +210,19 @@ const generateCalendar = (month, year, eventManager) => {
                 // Verifica se há eventos para a data atual
                 const currentDate = new Date(year, month, date);
                 const eventsForDate = eventManager.getEventsByDate(currentDate);
+
+                // Verifica se o dia atual pertence ao mês atual antes de adicionar a classe 'cellDay'
+                if (month === currentMonth && year === currentYear) {
+                    // Comparação para adicionar a classe 'cellDay' para o dia atual
+                    // Para resolver o bug de estar adicionando a mesma classe para todos os dias iguais ao today e não somente ao dia atual do mês atual, transformamos o conteudo do cellDay em um número e comparamos com a today (o número atual do mes) e depois comparamos o mês com o mes atual. Se não batesse a gente tiraria a classe cellDay e se o mes e o ano não fossem iguais ao mes e ano atual também tirariamos.
+                    if (parseInt(cellDay.textContent) === today && month === new Date().getMonth()) {
+                        cellDay.classList.add('cellDay');
+                    } else {
+                        cellDay.classList.remove('cellDay');
+                    }
+                } else {
+                    cellDay.classList.remove('cellDay');
+                }
 
                 // Mostra os eventos na célula
                 eventsForDate.forEach(event => {
@@ -233,9 +240,12 @@ const generateCalendar = (month, year, eventManager) => {
                     eventElement.appendChild(eventItem);
                 });
 
-                // Adiciona o elemento de eventManager à célula
+                // Adiciona o elemento de eventos à célula
                 cell.appendChild(eventElement);
+
+                // Incrementa o contador de dias
                 date++;
+
             }
             row.appendChild(cell)
         }
@@ -243,6 +253,12 @@ const generateCalendar = (month, year, eventManager) => {
     }
 
 }
+
+// Função para obter o dia atual do mês corrente
+const getCurrentDay = () => {
+    const currentDate = new Date();
+    return currentDate.getDate();
+};
 
 // Criando uma constante para os nomes dos meses
 const getMonthName = (month) => {
@@ -262,6 +278,7 @@ previousMonth.addEventListener('click', () => {
         currentMonth = 11
         currentYear--
     }
+    today = getCurrentDay(); // Atualiza o dia atual do mês corrente
     generateCalendar(currentMonth, currentYear, eventManager)
 })
 
@@ -271,5 +288,6 @@ nextMonth.addEventListener('click', () => {
         currentMonth = 0
         currentYear++
     }
+    today = getCurrentDay(); // Atualiza o dia atual do mês corrente
     generateCalendar(currentMonth, currentYear, eventManager)
 })
